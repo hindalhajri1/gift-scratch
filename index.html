@@ -112,9 +112,8 @@
         document.body.appendChild(message);
       })
       .catch(err => {
-        console.error("خطأ في الحفظ:", err);
-      alert("❌ حدث خطأ أثناء الحفظ:\n" + err.message);
-
+        console.error("❌ خطأ في الحفظ:", err);
+        alert("❌ حدث خطأ أثناء الحفظ:\n" + err.message);
       });
     }
   </script>
