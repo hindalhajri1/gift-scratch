@@ -86,9 +86,22 @@
     }
 
     function saveChoice(name, gift) {
-      console.log(`الموظف: ${name}, الهدية: ${gift}`);
-      // هنا يمكن لاحقاً ربطه بـ Google Sheet أو API
-      alert(`شكرًا ${name}! لقد حصلت على: ${gift}`);
+      fetch("PUT_YOUR_WEB_APP_URL_HERE", {
+        method: "POST",
+        body: JSON.stringify({ name, gift }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => res.text())
+      .then(res => {
+        alert(`شكرًا ${name}! لقد حصلت على: ${gift}`);
+        console.log("تم الحفظ في Google Sheet:", res);
+      })
+      .catch(err => {
+        console.error("خطأ في الحفظ:", err);
+        alert("حدث خطأ أثناء الحفظ. يرجى المحاولة مرة أخرى.");
+      });
     }
   </script>
 </body>
