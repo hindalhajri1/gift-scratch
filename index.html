@@ -113,7 +113,8 @@
       })
       .catch(err => {
         console.error("خطأ في الحفظ:", err);
-        alert("❌ حدث خطأ أثناء الحفظ:", err.message);
+      alert("❌ حدث خطأ أثناء الحفظ:\n" + err.message);
+
       });
     }
   </script>
