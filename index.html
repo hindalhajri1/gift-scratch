@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>اكشط واربح - فعالية الموظفين</title>
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #f2f2f2;
+      text-align: center;
+      padding: 50px;
+    }
+    .card {
+      display: inline-block;
+      width: 150px;
+      height: 150px;
+      margin: 15px;
+      background: #ccc;
+      border-radius: 15px;
+      line-height: 150px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .card.revealed {
+      background: #4CAF50;
+      color: white;
+    }
+    #gift-form {
+      margin-bottom: 30px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎁 اكشط واربح 🎁</h1>
+  <div id="gift-form">
+    <input type="text" id="employee-name" placeholder="ادخل اسمك" required>
+    <br>
+    <button onclick="startGame()">ابدأ</button>
+  </div>
+  <div id="cards" style="display:none"></div>
+
+  <script>
+    const gifts = [
+      'كوب قهوة', 'بطاقة شراء', 'إجازة يوم', 'وجبة غداء', 'كتاب تطوير', 'شاحن لاسلكي'
+    ];
+    let selected = false;
+
+    function startGame() {
+      const name = document.getElementById("employee-name").value.trim();
+      if (!name) return alert("يرجى إدخال الاسم");
+
+      document.getElementById("gift-form").style.display = 'none';
+      const cardsContainer = document.getElementById("cards");
+      cardsContainer.innerHTML = '';
+      cardsContainer.style.display = 'block';
+
+      const shuffled = [...gifts].sort(() => 0.5 - Math.random());
+
+      shuffled.forEach((gift, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.textContent = '🎁';
+        card.onclick = () => {
+          if (selected) return;
+          selected = true;
+          card.classList.add('revealed');
+          card.textContent = gift;
+          saveChoice(name, gift);
+        };
+        cardsContainer.appendChild(card);
+      });
+    }
+
+    function saveChoice(name, gift) {
+      console.log(`الموظف: ${name}, الهدية: ${gift}`);
+      // هنا يمكن لاحقاً ربطه بـ Google Sheet أو API
+      alert(`شكرًا ${name}! لقد حصلت على: ${gift}`);
+    }
+  </script>
+</body>
+</html>
