@@ -95,12 +95,25 @@
       })
       .then(res => res.text())
       .then(res => {
+        if (res.startsWith("خطأ")) {
+          alert("🚫 " + res);
+          return;
+        }
+
         alert(`شكرًا ${name}! لقد حصلت على: ${gift}`);
         console.log("تم الحفظ في Google Sheet:", res);
+
+        // بعد الحفظ، إخفاء الكروت ومنع اللعب مرة أخرى
+        document.getElementById("cards").style.display = 'none';
+        const message = document.createElement('p');
+        message.textContent = "✅ تم تسجيل مشاركتك، شكرًا لك!";
+        message.style.fontSize = "18px";
+        message.style.marginTop = "20px";
+        document.body.appendChild(message);
       })
       .catch(err => {
         console.error("خطأ في الحفظ:", err);
-        alert("حدث خطأ أثناء الحفظ. يرجى المحاولة مرة أخرى.");
+        alert("❌ حدث خطأ أثناء الحفظ:", err.message);
       });
     }
   </script>
